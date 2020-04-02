@@ -1,0 +1,39 @@
+{% extends "patients/index.html" %}
+{% block content %}
+<div class="ui divider" style="margin-top: 1.5em;"></div>
+<div class="ui segment" style="margin:0 20px;">
+  <div class="ui grid">
+    <div class="one wide column"></div>
+    <div class="nine wide column">
+      <div class="ui segment" style="text-align: center; font-weight: 700; font-size: 1.2em;">👇 PATIENTS' DATA 👇
+      </div>
+      <table class="ui celled table" style="text-align: center;">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>ID Number</th>
+            <th>Date of Birth</th>
+            <th>Date of Confirmation</th>
+            <th>Case Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for patient in patients %}
+          <tr class='{patient.caseNum}' style="cursor:pointer;"
+            onMouseOver="this.style.backgroundColor='rgb(240,240,240)'"
+            onMouseOut="this.style.backgroundColor='rgb(255,255,255)'" onclick="alert('Zois')">
+            <td data-label="Name">{{patient.name}}</td>
+            <td data-label="ID">{{patient.idNum}}</td>
+            <td data-label="Birth">{{patient.dateBirth}}</td>
+            <td data-label="Confirm">{{patient.dateConfi|date:"d F, Y"}}</td>
+            <td data-label="CaseNum">{{patient.caseNum}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="six wide column">
+  </div>
+</div>
+{% endblock content %}
