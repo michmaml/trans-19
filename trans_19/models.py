@@ -39,6 +39,9 @@ class Patient(models.Model):
     dateConfi = models.DateField()
     caseNum = models.IntegerField()
 
+    def __str__(self):
+        return self.name
+
 
 class Case(models.Model):
     nameLocation = models.CharField(max_length=70)

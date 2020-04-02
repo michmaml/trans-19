@@ -14,7 +14,7 @@
 </head>
 
 <body style="background-color: rgb(245, 245, 245);">
-  <div class="ui segment" style="background-color: white; box-shadow: 0px 4px 6px grey;">
+  <div class="ui segment" style="background-color: white; box-shadow: 0px 4px 6px grey; margin-bottom: 1.5em;">
     <div class="ui secondary menu" style="margin:0 1em;background-color: white;">
       <a class="item" style="font-size: larger;" href="{%url 'trans_19_home'%}">
         Trans-19
@@ -29,7 +29,23 @@
       </div>
     </div>
   </div>
+  {% if messages %}
+  {% for message in messages %}
+  <div class="ui success message" id="popup" style="margin: 0 20em;">
+    <i class="close icon" onclick="closeDiv()"></i>
+    <div class="header">
+      {{ message }}
+    </div>
+    <p>Your user registration was successful.</p>
+  </div>
+  {% endfor %}
+  {% endif %}
   {% block content %}{% endblock content %}
+  <script>
+    function closeDiv() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
 </body>
 
 </html>

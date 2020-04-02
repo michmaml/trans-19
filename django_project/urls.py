@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from chpstaff import views as chpstaff_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('signup/', chpstaff_views.signup, name='chpstaff_signup'),
     path('', include('trans_19.urls')),
 
 ]

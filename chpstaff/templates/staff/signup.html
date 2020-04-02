@@ -1,0 +1,17 @@
+{%extends "patients/index.html"%}
+{%block content%}
+<div class="content">
+  <form method="POST">
+    {%csrf_token%}
+    <fieldset>
+      {{form.as_p}}
+    </fieldset>
+    <div class="form-group">
+      <button type="submit">Create the account</button>
+    </div>
+  </form>
+  <div>
+    Already have an account?<a href="#">Login</a>
+  </div>
+</div>
+{%endblock content%}
