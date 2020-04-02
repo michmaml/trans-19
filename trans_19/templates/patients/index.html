@@ -24,9 +24,17 @@
           style="margin: 0 1em;padding:0; text-decoration: none;"><button class="ui primary button">
             Account
           </button></a>
-        <a class="item" style="margin: 0 1em;padding:0; text-decoration: none;"><button class="ui button">
+        {% if user.is_authenticated%}
+        <a class="item" style="margin: 0 1em;padding:0; text-decoration: none;" href="{%url 'chpstaff_logout'%}"><button
+            class="ui button">
             Logout
           </button></a>
+        {% else %}
+        <a class="item" style="margin: 0 1em;padding:0; text-decoration: none;" href="{%url 'chpstaff_login'%}"><button
+            class="ui button">
+            Log In
+          </button></a>
+        {% endif %}
       </div>
     </div>
   </div>

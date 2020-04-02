@@ -11,8 +11,8 @@ def signup(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}.')
-            return redirect('trans_19_home')
+            messages.success(request, f'Account created, please log in.')
+            return redirect('login')
     else:
         form = UserSignInForm()
     return render(request, 'staff/signup.html', {'form': form})

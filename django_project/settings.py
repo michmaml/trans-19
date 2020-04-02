@@ -126,3 +126,5 @@ STATIC_URL = '/static/'
 CRISPY_TEMPLATE_PACK = 'semantic-ui'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
+
+LOGIN_REDIRECT_URL = 'trans_19_home'
