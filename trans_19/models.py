@@ -34,10 +34,10 @@ VISIT_CHOICES = (
 
 class Patient(models.Model):
     name = models.CharField(max_length=30)
-    idNum = models.PositiveIntegerField(max_length=7)
-    dateBirth = models.DateTimeField()
-    dateConfi = models.DateTimeField()
-    caseNum = models.PositiveIntegerField()
+    idNum = models.CharField(max_length=10)
+    dateBirth = models.DateField()
+    dateConfi = models.DateField()
+    caseNum = models.IntegerField()
 
 
 class Case(models.Model):
@@ -46,8 +46,8 @@ class Case(models.Model):
     district = models.CharField(max_length=17, choices=DISTRICTS_CHOICES)
     xCoord = models.IntegerField()
     yCoord = models.IntegerField()
-    dateFrom = models.DateTimeField()
-    dateTo = models.DateTimeField()
+    dateFrom = models.DateField()
+    dateTo = models.DateField()
     details = models.CharField(max_length=70)
     category = models.CharField(max_length=9, choices=VISIT_CHOICES)
     patient = models.ForeignKey(Patient, unique=True, on_delete=models.CASCADE)
