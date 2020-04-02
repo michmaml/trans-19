@@ -1,13 +1,15 @@
 {%extends "patients/index.html"%}
+{%load crispy_forms_tags%}
 {%block content%}
-<div class="content">
-  <form method="POST">
-    {%csrf_token%}
-    <fieldset>
-      {{form.as_p}}
-    </fieldset>
-    <div class="form-group">
-      <button type="submit">Create the account</button>
+<div class="ui segment" style="margin: 0 20em;">
+  <form method="POST" class="ui form">
+    {% csrf_token %}
+    <div class="field">
+      <div class="form-group" style="border: none; padding: 0.5em;">
+        <h2>Create your account now and help fighing with the virus</h2>
+        {{ form|crispy }}
+        <button class="ui button" type="submit">Sign Up</button>
+      </div>
     </div>
   </form>
   <div>
@@ -15,3 +17,10 @@
   </div>
 </div>
 {%endblock content%}
+
+
+{%csrf_token%}
+<div class="ui form">
+  {% crispy form %}
+  <button type="submit">Create the account</button>
+</div>

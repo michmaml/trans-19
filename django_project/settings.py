@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'trans_19.apps.Trans19Config',
     'chpstaff.apps.ChpstaffConfig',
+    'crispy_forms',
+    'crispy_forms_semantic_ui',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -120,3 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK = 'semantic-ui'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
