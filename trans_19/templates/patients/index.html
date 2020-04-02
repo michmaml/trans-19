@@ -17,15 +17,16 @@
   <div class="ui segment" style="background-color: white; box-shadow: 0px 4px 6px grey; margin-bottom: 1.5em;">
     <div class="ui secondary menu" style="margin:0 1em;background-color: white;">
       <a class="item" style="font-size: larger;" href="{%url 'trans_19_home'%}">
-        Trans-19
+        <img src="../../static/resources/logo.svg" alt="Trans-19" style="transform: scale(5.3); margin-left: 4em;" />
       </a>
       <div class="right menu">
-        <a class="item" style="font-size: larger;" href="{%url 'trans_19_account'%}">
-          Account
-        </a>
-        <a class="ui item" style="font-size: larger;">
-          Logout
-        </a>
+        <a class="item" href="{%url 'trans_19_account'%}"
+          style="margin: 0 1em;padding:0; text-decoration: none;"><button class="ui primary button">
+            Account
+          </button></a>
+        <a class="item" style="margin: 0 1em;padding:0; text-decoration: none;"><button class="ui button">
+            Logout
+          </button></a>
       </div>
     </div>
   </div>
