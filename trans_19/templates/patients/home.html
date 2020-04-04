@@ -4,7 +4,7 @@
 <div class="ui segment" style="margin:0 20px;">
   <div class="ui grid">
     <div class="one wide column"></div>
-    <div class="five wide column">
+    <div class="six wide column">
       <div class="ui segment" style="text-align: center; font-weight: 700; font-size: 1.2em;">👇 PATIENTS' DATA 👇
       </div>
       <table class="ui celled table" style="text-align: center;">
@@ -19,53 +19,31 @@
         </thead>
         <tbody>
           {% for patient in patients %}
-          <tr class='{patient.caseNum}' style="cursor:pointer;"
-            onMouseOver="this.style.backgroundColor='rgb(240,240,240)'"
-            onMouseOut="this.style.backgroundColor='rgb(255,255,255)'" onclick="alert('Zois')">
-            <td data-label="Name">{{patient.name}}</td>
-            <td data-label="ID">{{patient.idNum}}</td>
-            <td data-label="Birth">{{patient.dateBirth|date:"d-M-Y"}}</td>
-            <td data-label="Confirm">{{patient.dateConfi|date:"d-M-Y"}}</td>
-            <td data-label="CaseNum">{{patient.caseNum}}</td>
-          </tr>
+          <a href="{%url 'trans_19_trips' patient.pk %}">
+            <tr class='patients' style="cursor:pointer;" onMouseOver="this.style.backgroundColor='rgb(240,240,240)'"
+              onMouseOut="this.style.backgroundColor='rgb(255,255,255)'">
+              <td id='Name'>{{patient.name}}</td>
+              <td data-label="ID">{{patient.idNum}}</td>
+              <td data-label="Birth">{{patient.dateBirth|date:"d-M-Y"}}</td>
+              <td data-label="Confirm">{{patient.dateConfi|date:"d-M-Y"}}</td>
+              <td data-label="CaseNum">{{patient.caseNum}}</td>
+            </tr>
+          </a>
           {% endfor %}
         </tbody>
       </table>
     </div>
-    <div class="ten wide column">
-      <table class="ui celled table" style="text-align: center;">
-        <thead>
-          <tr>
-            <th>Location Visited</th>
-            <th>Address</th>
-            <th>District</th>
-            <th>X Coord</th>
-            <th>Y Coord</th>
-            <th>Date From</th>
-            <th>Date To</th>
-            <th>Detail</th>
-            <th>Category</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for trip in trips %}
-          <tr class='{patient.caseNum}' style="cursor:pointer;"
-            onMouseOver="this.style.backgroundColor='rgb(240,240,240)'"
-            onMouseOut="this.style.backgroundColor='rgb(255,255,255)'">
-            <td data-label="NameLocation">{{trip.name_Location}}</td>
-            <td data-label="Address">{{trip.address}}</td>
-            <td data-label="District">{{trip.patient}}</td>
-            <td data-label="xCoord">{{trip.xCoord}}</td>
-            <td data-label="yCoord">{{trip.yCoord}}</td>
-            <td data-label="DateFrom">{{trip.date_From|date:"d-M-Y"}}</td>
-            <td data-label="DateTo">{{trip.date_To|date:"d-M-Y"}}</td>
-            <td data-label="Details">{{trip.details}}</td>
-            <td data-label="Category">{{trip.category}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="nine wide column">
+
     </div>
   </div>
 </div>
+<script>
+  // pass displayElements(this)
+  function displayElements(row) {
+    const patient = row.firstElementChild.innerHTML;
+    const elems = document.getElementById('elements');
+    return elems.filter
+  }
+</script>
 {% endblock content %}
