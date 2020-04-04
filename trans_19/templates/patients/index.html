@@ -20,11 +20,11 @@
         <img src="../../static/resources/logo.svg" alt="Trans-19" style="transform: scale(5.3); margin-left: 4em;" />
       </a>
       <div class="right menu">
-        <a class="item" href="{%url 'trans_19_account'%}"
+        {% if user.is_authenticated%}
+        <a class="item" href="{%url 'chpstaff_account'%}"
           style="margin: 0 1em;padding:0; text-decoration: none;"><button class="ui primary button">
             Account
           </button></a>
-        {% if user.is_authenticated%}
         <a class="item" style="margin: 0 1em;padding:0; text-decoration: none;" href="{%url 'chpstaff_logout'%}"><button
             class="ui button">
             Logout

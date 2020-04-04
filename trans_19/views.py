@@ -1,29 +1,13 @@
 from django.shortcuts import render
-from .models import Patient
+from .models import Patient, Case
 
 # Create your views here.
-
-'''patients = [
-    {
-        'name': 'Michal J Sekulski',
-        'idNum': 'M9531888',
-        'dateBirth': '1999-10-25',
-        'dateConfi': '2020-03-31',
-        'caseNum': '152'
-    },
-    {
-        'name': 'Zosia Sekulska',
-        'idNum': 'Z953NNNN',
-        'dateBirth': '2005-09-29',
-        'dateConfi': '2020-04-01',
-        'caseNum': '111'
-    }
-]'''
 
 
 def home(request):
     context = {
-        'patients': Patient.objects.all()
+        'patients': Patient.objects.all(),
+        'trips': Case.objects.all()
     }
     return render(request, 'patients/home.html', context)
 

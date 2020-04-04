@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserSignInForm
 
@@ -16,3 +17,8 @@ def signup(request):
     else:
         form = UserSignInForm()
     return render(request, 'staff/signup.html', {'form': form})
+
+
+@login_required
+def account(request):
+    return render(request, 'staff/account.html')

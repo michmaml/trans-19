@@ -4,30 +4,30 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 DISTRICTS_CHOICES = (
-    ('islands', 'ISLANDS'),
-    ('kwaitsing', 'KWAI TSING'),
-    ('north', 'NORTH'),
-    ('saikung', 'SAI KUNG'),
-    ('shatin', 'SHA TIN'),
-    ('taipo', 'TAI PO'),
-    ('tsuenwan', 'TSUEN WAN'),
-    ('tuenmun', 'TUEN MUN'),
-    ('yuenlong', 'YUEN LONG'),
-    ('kowlooncity', 'KOWLOON CITY'),
-    ('kwuntong', 'KWUN TONG'),
-    ('shamshuipo', 'SHAM SHUI PO'),
-    ('wongtaisin', 'WONG TAI SIN'),
-    ('yautsimmong', 'YAU TSIM MONG'),
-    ('centalwestern', 'CENTRAL & WESTERN'),
-    ('eastern', 'EASTERN'),
-    ('southern', 'SOUTHERN'),
-    ('wanchai', 'WANCHAI')
+    ('centalwestern', 'Central & Western'),
+    ('eastern', 'Eastern'),
+    ('islands', 'Islands'),
+    ('kowlooncity', 'Kowloon City'),
+    ('kwaitsing', 'Kwai Tsing'),
+    ('kwuntong', 'Kwun Tong'),
+    ('north', 'North'),
+    ('saikung', 'Sai Kung'),
+    ('shatin', 'Sha Tin'),
+    ('shamshuipo', 'Sham Shui Po'),
+    ('southern', 'Southern'),
+    ('taipo', 'Tai Po'),
+    ('tsuenwan', 'Tsuen Wan'),
+    ('tuenmun', 'Tuen Mun'),
+    ('wanchai', 'Wan Chai'),
+    ('wongtaisin', 'Wong Tai Sin'),
+    ('yautsimmong', 'Yau Tsim Mong'),
+    ('yuenlong', 'Yuen Long')
 )
 
 VISIT_CHOICES = (
-    ('residence', 'RESIDENCE'),
-    ('workplace', 'WORKPLACE'),
-    ('visit', 'VISIT'),
+    ('residence', 'Residence'),
+    ('workplace', 'Workplace'),
+    ('visit', 'Visit'),
     ('other', 'OTHER')
 )
 
@@ -44,13 +44,16 @@ class Patient(models.Model):
 
 
 class Case(models.Model):
-    nameLocation = models.CharField(max_length=70)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    name_Location = models.CharField(max_length=70)
     address = models.CharField(max_length=70)
     district = models.CharField(max_length=17, choices=DISTRICTS_CHOICES)
     xCoord = models.IntegerField()
     yCoord = models.IntegerField()
-    dateFrom = models.DateField()
-    dateTo = models.DateField()
+    date_From = models.DateField()
+    date_To = models.DateField()
     details = models.CharField(max_length=70)
     category = models.CharField(max_length=9, choices=VISIT_CHOICES)
-    patient = models.ForeignKey(Patient, unique=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.patient} Case - {self.name_Location}'
