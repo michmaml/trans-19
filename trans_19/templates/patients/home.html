@@ -1,49 +1,42 @@
 {% extends "patients/index.html" %}
 {% block content %}
 <div class="ui divider"></div>
-<div class="ui segment" style="margin:0 20px;">
-  <div class="ui grid">
-    <div class="one wide column"></div>
-    <div class="six wide column">
-      <div class="ui segment" style="text-align: center; font-weight: 700; font-size: 1.2em;">👇 PATIENTS' DATA 👇
-      </div>
-      <table class="ui celled table" style="text-align: center;">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>ID Number</th>
-            <th>Date of Birth</th>
-            <th>Date of Confirmation</th>
-            <th>Case Number</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for patient in patients %}
-          <a href="{%url 'trans_19_trips' patient.pk %}">
-            <tr class='patients' style="cursor:pointer;" onMouseOver="this.style.backgroundColor='rgb(240,240,240)'"
-              onMouseOut="this.style.backgroundColor='rgb(255,255,255)'">
-              <td id='Name'>{{patient.name}}</td>
-              <td data-label="ID">{{patient.idNum}}</td>
-              <td data-label="Birth">{{patient.dateBirth|date:"d-M-Y"}}</td>
-              <td data-label="Confirm">{{patient.dateConfi|date:"d-M-Y"}}</td>
-              <td data-label="CaseNum">{{patient.caseNum}}</td>
-            </tr>
-          </a>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <div class="nine wide column">
-
-    </div>
+<div class="ui segment" style="margin:0 10em; padding: 1.5em;">
+  <div class="ui segment" style="text-align: center; font-weight: 700; font-size: 1.2em;">👇 PATIENTS' DATA 👇
   </div>
+  <table class="ui celled table" style="text-align: center;">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>ID Number</th>
+        <th>Date of Birth</th>
+        <th>Date of Confirmation</th>
+        <th>Case Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for patient in patients %}
+      <tr class='patients' style="cursor:pointer;" onMouseOver="this.style.backgroundColor='rgb(240,240,240)'"
+        onMouseOut="this.style.backgroundColor='rgb(255,255,255)'" data-href="{%url 'trans_19_case' patient.pk %}">
+        <td id='Name'>{{patient.name}}</td>
+        <td data-label="ID">{{patient.idNum}}</td>
+        <td data-label="Birth">{{patient.dateBirth|date:"d-M-Y"}}</td>
+        <td data-label="Confirm">{{patient.dateConfi|date:"d-M-Y"}}</td>
+        <td data-label="CaseNum">{{patient.caseNum}}</td>
+      </tr>
+      {% empty %}
+      <h3>Hurray! There are no patients.</h3>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 </div>
 <script>
-  // pass displayElements(this)
-  function displayElements(row) {
-    const patient = row.firstElementChild.innerHTML;
-    const elems = document.getElementById('elements');
-    return elems.filter
-  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const rows = document.querySelectorAll('tr[data-href]');
+    rows.forEach(row => {
+      row.addEventListener('click', () => window.location.href = row.dataset.href)
+    });
+  });
 </script>
 {% endblock content %}

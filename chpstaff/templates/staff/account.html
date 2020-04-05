@@ -1,5 +1,13 @@
 {%extends "patients/index.html"%}
 {%load crispy_forms_tags%}
 {%block content%}
-<h2>{{user.username}}</h2>
+<div class="ui divider"></div>
+<div class="ui segment" style="margin:0 10em; padding: 1.5em;">
+  <div class="ui segment">
+    <div style="text-align: center; font-weight: 700; font-size: 1.2em;">👇 YOUR ACCOUNT 👇</div>
+    <div class="name">{{staff.username}}</div>
+    <div>{{staff.email}}</div>
+  </div>
+</div>
+</div>
 {%endblock content%}
