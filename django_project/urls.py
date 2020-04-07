@@ -28,30 +28,3 @@ urlpatterns = [
          name='chpstaff_logout'),
     path('', include('trans_19.urls')),
 ]
-
-
-'''
-<table class="ui celled table" style="text-align: center;">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>ID Number</th>
-            <th>Date of Birth</th>
-            <th>Date of Confirmation</th>
-            <th>Case Number</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for patient in patients %}
-          <tr class='patients' style="cursor:pointer;" onMouseOver="this.style.backgroundColor='rgb(240,240,240)'"
-            onMouseOut="this.style.backgroundColor='rgb(255,255,255)'" href="{%url 'trans_19_trips' patient.pk %}">
-            <td id='Name'>{{patient.name}}</td>
-            <td data-label="ID">{{patient.idNum}}</td>
-            <td data-label="Birth">{{patient.dateBirth|date:"d-M-Y"}}</td>
-            <td data-label="Confirm">{{patient.dateConfi|date:"d-M-Y"}}</td>
-            <td data-label="CaseNum">{{patient.caseNum}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-'''

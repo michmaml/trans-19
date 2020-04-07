@@ -4,10 +4,20 @@
 <div class="ui divider"></div>
 <div class="ui segment" style="margin:0 10em; padding: 1.5em;">
   <div class="ui segment">
-    <div style="text-align: center; font-weight: 700; font-size: 1.2em;">👇 YOUR ACCOUNT 👇</div>
-    <div class="name">{{staff.username}}</div>
-    <div>{{staff.email}}</div>
+    <div style="text-align: center; font-weight: 700; font-size: 1.2em;">👇 <span
+        style="color: red;">{{user.username}}</span> , YOUR ACCOUNT 👇</div>
   </div>
-</div>
+  <div class="ui container">
+    <form method="POST" class="ui equal width form" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="field">
+        {{ form|crispy }}
+        <div class="ui pointing label" style="margin: 0 5em 0.5em 0;">
+          Make sure you remember the email assigned to this account as this is the only way of retrieving your
+          password. </div>
+      </div>
+      <button class="ui primary button" type="submit">Update Credentials</button>
+    </form>
+  </div>
 </div>
 {%endblock content%}

@@ -16,7 +16,7 @@ class PatientsListView(ListView):
     model = Patient
     template_name = 'patients/home.html'
     context_object_name = 'patients'
-    ordering = ['caseNum']
+    ordering = ['-caseNum']
 
 
 class CaseDetailView(TemplateView):
