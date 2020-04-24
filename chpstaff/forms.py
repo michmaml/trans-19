@@ -11,7 +11,7 @@ class UserSignInForm(UserCreationForm):
     first_name = forms.CharField()
     last_name = forms.CharField()
     email = forms.EmailField()
-    epidemiologist = forms.BooleanField(initial=False)
+    #epidemiologist = forms.BooleanField(initial=False)
     '''
     def __init__(self, *args, **kwargs):
         super(UserSignInForm, self).__init__(*args, **kwargs)
@@ -20,8 +20,7 @@ class UserSignInForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'chp_staff_number',
-                  'email', 'username', 'password1', 'password2', 'epidemiologist'
-                  ]
+                  'email', 'username', 'password1', 'password2']  # , 'epidemiologist'
 
 
 class UserUpdateAccount(forms.ModelForm):
