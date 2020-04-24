@@ -35,6 +35,10 @@ def account(request):
     return render(request, 'patients/account.html')
 
 
+def view_404(request):
+    return render(request, 'patients/page404.html')
+
+
 '''
 def trips(request, patient_pk):
     trips = Case.objects.filter(id=patient_pk)
