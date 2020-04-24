@@ -1,0 +1,14 @@
+{%extends "patients/index.html"%}
+{%load crispy_forms_tags%}
+{%block content%}
+<div class="ui segment" style="margin: 0 20em 1em 20em; padding-bottom: 0.8em;">
+  <form method="POST" class="ui equal width form">
+    {% csrf_token %}
+    <div class="field" style="border: none; padding: 0.5em;">
+      <h2 style="margin-top: 0.5em;">Add a new Patient Record to the list</h2>
+      {{ form|crispy }}
+      <button class="ui button" type="submit">Create Record</button>
+    </div>
+  </form>
+</div>
+{%endblock content%}

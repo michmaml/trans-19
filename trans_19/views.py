@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import (
+    ListView, TemplateView, CreateView, UpdateView)
 from .models import Patient, Case
 
 # Create your views here.
@@ -12,14 +14,14 @@ def home(request):
     return render(request, 'patients/home.html', context)
 
 
-class PatientsListView(ListView):
+class PatientsListView(LoginRequiredMixin, ListView):
     model = Patient
     template_name = 'patients/home.html'
     context_object_name = 'patients'
     ordering = ['-caseNum']
 
 
-class CaseDetailView(TemplateView):
+class CaseDetailView(LoginRequiredMixin, TemplateView):
     #model = Case
     template_name = 'patients/case_detail.html'
 
@@ -31,31 +33,21 @@ class CaseDetailView(TemplateView):
         return context
 
 
+class AddPatientRecordView(LoginRequiredMixin, CreateView):
+    model = Patient
+    template_name = 'patients/addPatientRecord.html'
+    fields = ['name', 'idNum', 'dateBirth', 'dateConfi', 'caseNum']
+
+
+class UpdatePatientRecordView(LoginRequiredMixin, UpdateView):
+    model = Patient
+    template_name = 'patients/addPatientRecord.html'
+    fields = ['name', 'idNum', 'dateBirth', 'dateConfi', 'caseNum']
+
+
 def account(request):
-    return render(request, 'patients/account.html')
+    return render(request, 'patients/account.html', {'title': 'Trans-19 Account'})
 
 
 def view_404(request):
     return render(request, 'patients/page404.html')
-
-
-'''
-def trips(request, patient_pk):
-    trips = Case.objects.filter(id=patient_pk)
-    context = {
-        'trips': trips
-    }
-    return render(request, 'patients/trips.html', context)
-'''
-
-'''
-class Trips(TemplateView):
-    template_name = "trips.html"
-
-    def get_context_data(self, **kwargs):
-        patient = self.kwargs['patient']
-        context = super().get_context_data(**kwargs)
-        context['trips'] = Case.objects.filter(patient__pk=patient)
-        context['patient'] = Patient.objects.get(pk=patient)
-        return context
-'''

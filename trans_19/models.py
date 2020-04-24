@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -32,14 +33,17 @@ VISIT_CHOICES = (
 
 
 class Patient(models.Model):
-    name = models.CharField(max_length=30)
-    idNum = models.CharField(max_length=10)
-    dateBirth = models.DateField()
-    dateConfi = models.DateField()
-    caseNum = models.IntegerField()
+    name = models.CharField('Name', max_length=30)
+    idNum = models.CharField('ID Number', max_length=10)
+    dateBirth = models.DateField('Date of Birth(YYYY-MM-DD)')
+    dateConfi = models.DateField('Date of Confirmation(YYYY-MM-DD)')
+    caseNum = models.IntegerField('Case Number')
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('trans_19_home')
 
 
 class Case(models.Model):
