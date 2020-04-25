@@ -1,13 +1,13 @@
 from django.urls import path
-from .views import PatientsListView, CaseDetailView, AddPatientRecordView, UpdatePatientRecordView
+from .views import PatientsListView, PatientDetailView, AddPatientRecordView, UpdatePatientRecordView
 from trans_19 import views
 
 urlpatterns = [
     path('', PatientsListView.as_view(), name='trans_19_home'),
     path('patient/<int:patient>/',
-         CaseDetailView.as_view(), name='trans_19_case'),
+         PatientDetailView.as_view(), name='trans_19_patient'),
     path('patient/add/', AddPatientRecordView.as_view(),
          name='trans_19_addPatientRecord'),
-    path('patient/update', UpdatePatientRecordView.as_view(),
+    path('patient/<int:patient>/update', UpdatePatientRecordView.as_view(),
          name='trans_19_updatePatientRecord'),
 ]

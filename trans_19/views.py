@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView, TemplateView, CreateView, UpdateView)
-from .models import Patient, Case
+from .models import Patient, Visit
 
 # Create your views here.
 
@@ -21,27 +21,28 @@ class PatientsListView(LoginRequiredMixin, ListView):
     ordering = ['-caseNum']
 
 
-class CaseDetailView(LoginRequiredMixin, TemplateView):
+class PatientDetailView(LoginRequiredMixin, TemplateView):
     #model = Case
-    template_name = 'patients/case_detail.html'
+    template_name = 'patients/patient_detail.html'
 
     def get_context_data(self, **kwargs):
         patient = self.kwargs['patient']
         context = super().get_context_data(**kwargs)
-        context['case_list'] = Case.objects.filter(patient__pk=patient)
+        context['visit_list'] = Visit.objects.filter(patient__pk=patient)
         context['patient'] = Patient.objects.get(pk=patient)
         return context
 
 
 class AddPatientRecordView(LoginRequiredMixin, CreateView):
     model = Patient
-    template_name = 'patients/addPatientRecord.html'
+    template_name = 'patients/add_patient_record.html'
     fields = ['name', 'idNum', 'dateBirth', 'dateConfi', 'caseNum']
 
 
 class UpdatePatientRecordView(LoginRequiredMixin, UpdateView):
     model = Patient
-    template_name = 'patients/addPatientRecord.html'
+    template_name = 'patients/update_patient_record.html'
+    pk_url_kwarg = 'patient'
     fields = ['name', 'idNum', 'dateBirth', 'dateConfi', 'caseNum']
 
 

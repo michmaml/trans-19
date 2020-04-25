@@ -23,17 +23,17 @@
       </tr>
     </thead>
     <tbody>
-      {% for case in case_list %}
+      {% for visit in visit_list %}
       <tr>
-        <td data-label="NameLocation">{{case.name_Location}}</td>
-        <td data-label="Address">{{case.address}}</td>
-        <td data-label="District">{{case.district|capfirst}}</td>
-        <td data-label="xCoord">{{case.xCoord}}</td>
-        <td data-label="yCoord">{{case.yCoord}}</td>
-        <td data-label="DateFrom">{{case.date_From|date:"d-M-Y"}}</td>
-        <td data-label="DateTo">{{case.date_To|date:"d-M-Y"}}</td>
-        <td data-label="Details">{{case.details}}</td>
-        <td data-label="Category">{{case.category|capfirst}}</td>
+        <td data-label="NameLocation">{{visit.name_Location}}</td>
+        <td data-label="Address">{{visit.address}}</td>
+        <td data-label="District">{{visit.district|capfirst}}</td>
+        <td data-label="xCoord">{{visit.xCoord}}</td>
+        <td data-label="yCoord">{{visit.yCoord}}</td>
+        <td data-label="DateFrom">{{visit.date_From|date:"d-M-Y"}}</td>
+        <td data-label="DateTo">{{visit.date_To|date:"d-M-Y"}}</td>
+        <td data-label="Details">{{visit.details}}</td>
+        <td data-label="Category">{{visit.category|capfirst}}</td>
       </tr>
       {% endfor %}
     </tbody>

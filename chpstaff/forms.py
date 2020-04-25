@@ -12,11 +12,7 @@ class UserSignInForm(UserCreationForm):
     last_name = forms.CharField()
     email = forms.EmailField()
     #epidemiologist = forms.BooleanField(initial=False)
-    '''
-    def __init__(self, *args, **kwargs):
-        super(UserSignInForm, self).__init__(*args, **kwargs)
-        self.fields['epidemiologist'].widget = HiddenInput()
-    '''
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'chp_staff_number',

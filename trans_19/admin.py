@@ -1,8 +1,6 @@
 from django.contrib import admin
-from .models import Patient, Case
-#from chpstaff.models import Account
+from .models import Patient, Visit
 # Register your models here.
 
 admin.site.register(Patient)
-admin.site.register(Case)
-# admin.site.register(Account)
+admin.site.register(Visit)
