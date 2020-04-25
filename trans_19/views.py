@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
-    ListView, TemplateView, CreateView, UpdateView)
+    ListView, TemplateView, CreateView, UpdateView, DeleteView)
 from .models import Patient, Visit
 
 # Create your views here.
@@ -22,7 +22,7 @@ class PatientsListView(LoginRequiredMixin, ListView):
 
 
 class PatientDetailView(LoginRequiredMixin, TemplateView):
-    template_name = 'patients/patient_detail.html'
+    template_name = 'patients/patient_trips.html'
 
     def get_context_data(self, **kwargs):
         patient = self.kwargs['patient']
@@ -34,14 +34,22 @@ class PatientDetailView(LoginRequiredMixin, TemplateView):
 
 class AddPatientRecordView(LoginRequiredMixin, CreateView):
     model = Patient
-    template_name = 'patients/add_patient_record.html'
+    template_name = 'patients/patient_actions/add_patient_record.html'
     fields = ['name', 'idNum', 'dateBirth', 'dateConfi', 'caseNum']
 
 
 class UpdatePatientRecordView(LoginRequiredMixin, UpdateView):
     model = Patient
-    template_name = 'patients/update_patient_record.html'
+    template_name = 'patients/patient_actions/update_patient_record.html'
     pk_url_kwarg = 'patient'
+    fields = ['name', 'idNum', 'dateBirth', 'dateConfi', 'caseNum']
+
+
+class DeletePatientRecordView(LoginRequiredMixin, DeleteView):
+    model = Patient
+    template_name = 'patients/patient_actions/delete_patient_record.html'
+    pk_url_kwarg = 'patient'
+    success_url = '/'
     fields = ['name', 'idNum', 'dateBirth', 'dateConfi', 'caseNum']
 
 
