@@ -22,7 +22,6 @@ class PatientsListView(LoginRequiredMixin, ListView):
 
 
 class PatientDetailView(LoginRequiredMixin, TemplateView):
-    #model = Case
     template_name = 'patients/patient_detail.html'
 
     def get_context_data(self, **kwargs):
