@@ -13,7 +13,7 @@ def signup(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created, please log in.')
-            return redirect('login')
+            return redirect('/login')
     else:
         form = UserSignInForm()
     return render(request, 'staff/signup.html', {'form': form})
@@ -26,7 +26,7 @@ def account(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('signup')
+            return redirect('/signup')
     else:
         form = UserUpdateAccount(instance=request.user)
     context = {
