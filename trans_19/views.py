@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView, TemplateView, CreateView, UpdateView, DeleteView)
@@ -52,6 +53,49 @@ class DeletePatientRecordView(LoginRequiredMixin, DeleteView):
     success_url = '/'
     fields = ['name', 'idNum', 'dateBirth', 'dateConfi', 'caseNum']
 
+class AddPatientVisitView(LoginRequiredMixin, CreateView):
+    model = Visit
+    template_name = 'patients/patient_actions/add_patient_visit.html'
+    fields = ['name_Location', 'address', 'district', 'xCoord', 'yCoord', 'date_From', 'date_To', 'details', 'category']
+
+    def form_valid(self, form):
+        patient = self.kwargs['patient']
+        form.instance.patient = Patient.objects.get(pk=patient)
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        patient = self.kwargs['patient']
+        context = super().get_context_data(**kwargs)
+        context['patientId'] = patient
+        return context
+
+class UpdatePatientVisitView(LoginRequiredMixin, UpdateView):
+    model = Visit
+    template_name = 'patients/patient_actions/update_patient_visit.html'
+    pk_url_kwarg = 'visit'
+    fields = ['name_Location', 'address', 'district', 'xCoord', 'yCoord', 'date_From', 'date_To', 'details', 'category']
+
+    def get_context_data(self, **kwargs):
+        patient = self.kwargs['patient']
+        context = super().get_context_data(**kwargs)
+        context['patientId'] = patient
+        return context
+
+class DeletePatientVisitView(LoginRequiredMixin, DeleteView):
+    model = Visit
+    template_name = 'patients/patient_actions/delete_patient_visit.html'
+    pk_url_kwarg = 'visit'
+    fields = ['patient', 'name_Location', 'address', 'district', 'xCoord', 'yCoord', 'date_From', 'date_To', 'details', 'category']
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('trans_19_patient', kwargs = {'patient': self.kwargs['patient']})
+
+    def get_context_data(self, **kwargs):
+        patient = self.kwargs['patient']
+        context = super().get_context_data(**kwargs)
+        context['patientId'] = patient
+        success_url = 'patient/' + str(patient)
+        return context
 
 def account(request):
     return render(request, 'patients/account.html', {'title': 'Trans-19 Account'})

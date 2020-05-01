@@ -48,15 +48,18 @@ class Patient(models.Model):
 
 class Visit(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    name_Location = models.CharField(max_length=70)
+    name_Location = models.CharField('Location Visited', max_length=70)
     address = models.CharField(max_length=70)
     district = models.CharField(max_length=17, choices=DISTRICTS_CHOICES)
-    xCoord = models.IntegerField()
-    yCoord = models.IntegerField()
-    date_From = models.DateField()
-    date_To = models.DateField()
+    xCoord = models.IntegerField('X Coordinate')
+    yCoord = models.IntegerField('Y Coordinate')
+    date_From = models.DateField('Date From (YYYY-MM-DD)')
+    date_To = models.DateField('Date To (YYYY-MM-DD)')
     details = models.CharField(max_length=70)
     category = models.CharField(max_length=9, choices=VISIT_CHOICES)
 
     def __str__(self):
         return f'{self.patient} visit - {self.name_Location}'
+
+    def get_absolute_url(self):
+        return reverse('trans_19_patient', kwargs={'patient': self.patient.id})
