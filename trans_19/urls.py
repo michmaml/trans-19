@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PatientsListView, PatientDetailView, AddPatientRecordView, UpdatePatientRecordView, DeletePatientRecordView
+from .views import PatientsListView, PatientDetailView, AddPatientRecordView, UpdatePatientRecordView, DeletePatientRecordView, AddPatientVisitView, DeletePatientVisitView, UpdatePatientVisitView
 from trans_19 import views
 
 urlpatterns = [
@@ -8,8 +8,14 @@ urlpatterns = [
          PatientDetailView.as_view(), name='trans_19_patient'),
     path('patient/add/', AddPatientRecordView.as_view(),
          name='trans_19_addPatientRecord'),
+    path('patient<int:patient>/visitadd', AddPatientVisitView.as_view(),
+         name='trans_19_addPatientVisit'),
     path('patient/<int:patient>/update', UpdatePatientRecordView.as_view(),
          name='trans_19_updatePatientRecord'),
+    path('patient<int:patient>/visit<int:visit>update', UpdatePatientVisitView.as_view(),
+         name='trans_19_updatePatientVisit'),
     path('patient/<int:patient>/delete', DeletePatientRecordView.as_view(),
          name='trans_19_deletePatientRecord'),
+    path('patient<int:patient>/visit<int:visit>delete', DeletePatientVisitView.as_view(),
+         name='trans_19_deletePatientVisit'),
 ]
