@@ -31,15 +31,15 @@
     <tbody>
       {% for visit in visit_list %}
       <tr>
-        <td data-label="NameLocation">{{visit.name_Location}}</td>
-        <td data-label="Address">{{visit.address}}</td>
-        <td data-label="District">{{visit.district|capfirst}}</td>
-        <td data-label="xCoord">{{visit.xCoord}}</td>
-        <td data-label="yCoord">{{visit.yCoord}}</td>
+        <td data-label="NameLocation">{{visit.location.name}}</td>
+        <td data-label="Address">{{visit.location.address}}</td>
+        <td data-label="District">{{visit.location.district|capfirst}}</td>
+        <td data-label="xCoord">{{visit.location.xCoord}}</td>
+        <td data-label="yCoord">{{visit.location.yCoord}}</td>
         <td data-label="DateFrom">{{visit.date_From|date:"d-M-Y"}}</td>
         <td data-label="DateTo">{{visit.date_To|date:"d-M-Y"}}</td>
         <td data-label="Details">{{visit.details}}</td>
-        <td data-label="Category">{{visit.category|capfirst}}</td>
+        <td data-label="Category">{{visit.location.category|capfirst}}</td>
         <td style="border-left:0.2em solid rgba(34,36,38,.1); padding-left:0.05em; padding-right:0.05em; "><a
             class="ui brown button" href="{%url 'trans_19_updatePatientVisit' patient.id visit.id %}"
             style="margin:0">Update</a>

@@ -1,0 +1,18 @@
+#menu-outer {
+    width: 100%;
+}
+
+.table {
+    display: table;   /* Allow the centering to work */
+    margin: 0 auto;
+}
+
+ul#horizontal-list {
+    list-style: none;
+}
+ul#horizontal-list li {
+    display: table-cell;
+}
+ul#horizontal-list a{
+    display: block;
+}

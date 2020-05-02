@@ -45,21 +45,27 @@ class Patient(models.Model):
     def get_absolute_url(self):
         return reverse('trans_19_patient', kwargs={'patient': self.pk})
 
-
-class Visit(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    name_Location = models.CharField('Location Visited', max_length=70)
+class Location(models.Model):
+    name = models.CharField('Location Visited', max_length=70)
     address = models.CharField(max_length=70)
     district = models.CharField(max_length=17, choices=DISTRICTS_CHOICES)
     xCoord = models.IntegerField('X Coordinate')
     yCoord = models.IntegerField('Y Coordinate')
+    category = models.CharField(max_length=9, choices=VISIT_CHOICES)
+
+    def __str__(self):
+        return self.name
+
+class Visit(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True)
     date_From = models.DateField('Date From (YYYY-MM-DD)')
     date_To = models.DateField('Date To (YYYY-MM-DD)')
     details = models.CharField(max_length=70)
     category = models.CharField(max_length=9, choices=VISIT_CHOICES)
 
     def __str__(self):
-        return f'{self.patient} visit - {self.name_Location}'
+        return f'{self.patient} visit - {self.location.name}'
 
     def get_absolute_url(self):
         return reverse('trans_19_patient', kwargs={'patient': self.patient.id})
