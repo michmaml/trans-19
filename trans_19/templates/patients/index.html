@@ -19,6 +19,14 @@
       </a>
       <div class="right menu">
         {% if user.is_authenticated%}
+        <a class="item" href="{%url 'trans_19_addLocationRecord' %}"
+          style="margin: 0 1em;padding:0; text-decoration: none;"><button class="ui teal button">
+            Add New Location
+          </button></a>
+        <a class="item" href="{%url 'trans_19_location' %}"
+          style="margin: 0 1em;padding:0; text-decoration: none;"><button class="ui teal button">
+            View Locations
+          </button></a>
         <a class="item" href="{%url 'chpstaff_account'%}"
           style="margin: 0 1em;padding:0; text-decoration: none;"><button class="ui primary button">
             Account

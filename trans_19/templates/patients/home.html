@@ -3,22 +3,15 @@
 
 <div class="ui divider"></div>
 <div class="ui segment" style="margin:0 10em; padding: 1.5em;">
-  <div class="#menu-outer">
-    <div class="table">
-      <ul id="horizontal-list">
-        <li><a class="ui teal button" href="{%url 'trans_19_addPatientRecord' %}" >+<span
-          style="margin:0 0.8em">Add New Patient</span>+</a></li>
-        <li><a class="ui teal button" href="{%url 'trans_19_addLocationRecord' %}" >+<span
-            style="margin:0 0.8em">Add New Location</span>+</a></li>
-        <li><a class="ui teal button" href="{%url 'trans_19_location' %}" >+<span
-            style="margin:0 0.8em">View Locations</span>+</a></li>
-      </ul>
-    </div>
-  </div>
   <div class="ui segment" style="text-align: center; font-weight: 700; font-size: 1.2em;">👇 PATIENTS' DATA 👇
   </div>
 
   <table class="ui celled table" style="text-align: center; margin-bottom: 1.5em;">
+    <div>
+      <a class="ui teal button" href="{%url 'trans_19_addPatientRecord' %}" style="width: 100%;">+<span
+          style="margin:0 0.8em">Add New
+          Patient</span>+</a>
+    </div>
     <thead>
       <tr>
         <th>Name</th>
