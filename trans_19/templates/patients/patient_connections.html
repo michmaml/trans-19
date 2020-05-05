@@ -10,12 +10,13 @@
     <div class="cent" style="margin: 0 auto; text-align: center; padding: 1em 0;">👇 CONNECTIONS 👇</div>
   </div>
   <div class="ui segment">
-    <form method="get" action="">
-      {{form|crispy}}
-      <div class="form-group col-md-6 mb-0">
-        {{ select_location|as_crispy_field }}
+    <form method="GET" class="ui equal width form">
+      <div class="field" style="border: none; padding: 0.5em;">
+        {{ form|crispy }}
+        <div style="text-align: center;">
+          <button class="ui button" style="position: relative; top: 50%;" type="submit">Search</button>
+        </div>
       </div>
-      <input class="submit ui teal button" type="submit" style="width: 100%;" value="Search">
     </form>
   </div>
   <div class="ui segment">

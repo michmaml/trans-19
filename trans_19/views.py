@@ -144,8 +144,7 @@ class UpdateLocationView(LoginRequiredMixin, UpdateView):
     def get_success_url(self, **kwargs):
         return reverse_lazy('trans_19_location')
 
-
-class PatientConnectionsView(LoginRequiredMixin, TemplateView, forms.Form):
+class PatientConnectionsView(LoginRequiredMixin, TemplateView):
     template_name = 'patients/patient_connections.html'
 
     def get_context_data(self, **kwargs):
@@ -153,8 +152,8 @@ class PatientConnectionsView(LoginRequiredMixin, TemplateView, forms.Form):
         context = super().get_context_data(**kwargs)
         context['patient'] = Patient.objects.get(pk=patient_id)
 
-        location_id = -1 if self.request.GET.get('location_id') == None else int(self.request.GET.get('location_id'))
-        time_range = 1 if self.request.GET.get('time_range') == None else int(self.request.GET.get('time_range'))
+        location_id = -1 if self.request.GET.get('location') == None else int(self.request.GET.get('location'))
+        time_range = 1 if self.request.GET.get('time_window') == None else int(self.request.GET.get('time_window'))
 
         try:
             case = Patient.objects.get(pk=patient_id)
@@ -174,13 +173,19 @@ class PatientConnectionsView(LoginRequiredMixin, TemplateView, forms.Form):
         context['case'] = case
         context['visits'] = visits
 
-        context['select_location'] = forms.CharField(widget=forms.PasswordInput())
-        """
-        email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
-        password = forms.CharField(widget=forms.PasswordInput())
-        context['field'] = [email, password]
-        """
+        location_choices = {
+            -1: 'All'
+        }
 
+        tmp_visits = Visit.objects.filter(patient_id=patient_id)
+        for t in tmp_visits:
+            location_choices[t.location.id] = t.location.name
+
+        class SearchConnectionForm(forms.Form):
+            location = forms.ChoiceField(label='Location', choices=list(location_choices.items()), required=True, initial=location_id)
+            time_window = forms.IntegerField(label='Search window (in days)', required=True, initial=time_range)     
+
+        context['form'] = SearchConnectionForm()
         return context
 
 def account(request):
