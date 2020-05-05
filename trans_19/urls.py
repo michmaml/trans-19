@@ -20,6 +20,8 @@ urlpatterns = [
          name='trans_19_deletePatientRecord'),
     path('patient/<int:patient>/visit/<int:visit>/delete/', DeletePatientVisitView.as_view(),
          name='trans_19_deletePatientVisit'),
+    path('patient/<int:patient>/connections/', PatientConnectionsView.as_view(),
+         name='trans_19_patient_connections'),
     path('location/add/', AddLocationRecordView.as_view(),
          name='trans_19_addLocationRecord'),
     path('location/', ViewLocationRecordView.as_view(),

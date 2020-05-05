@@ -4,6 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView, TemplateView, CreateView, UpdateView, DeleteView)
 from .models import Patient, Visit, Location
+from django import forms
+from datetime import datetime, timedelta
 
 # Create your views here.
 
@@ -141,6 +143,45 @@ class UpdateLocationView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('trans_19_location')
+
+
+class PatientConnectionsView(LoginRequiredMixin, TemplateView, forms.Form):
+    template_name = 'patients/patient_connections.html'
+
+    def get_context_data(self, **kwargs):
+        patient_id = self.kwargs['patient']
+        context = super().get_context_data(**kwargs)
+        context['patient'] = Patient.objects.get(pk=patient_id)
+
+        location_id = -1 if self.request.GET.get('location_id') == None else int(self.request.GET.get('location_id'))
+        time_range = 1 if self.request.GET.get('time_range') == None else int(self.request.GET.get('time_range'))
+
+        try:
+            case = Patient.objects.get(pk=patient_id)
+            visits = Visit.objects.filter(patient=patient_id)
+            if location_id != -1:
+                visits = visits.filter(location=location_id)
+            for visit in visits:
+                date_lower_bound = visit.date_From - timedelta(days=time_range)
+                date_upper_bound = visit.date_To + timedelta(days=time_range)
+                visit.connections = Visit.objects.filter(location=visit.location).filter(date_To__gte=date_lower_bound).filter(date_From__lte=date_upper_bound).exclude(patient_id=patient_id)
+        except Patient.DoesNotExist:
+            case = None
+            visits = None
+        except Exception as e:
+            visits = None
+
+        context['case'] = case
+        context['visits'] = visits
+
+        context['select_location'] = forms.CharField(widget=forms.PasswordInput())
+        """
+        email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+        password = forms.CharField(widget=forms.PasswordInput())
+        context['field'] = [email, password]
+        """
+
+        return context
 
 def account(request):
     return render(request, 'patients/account.html', {'title': 'Trans-19 Account'})

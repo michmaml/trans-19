@@ -1,0 +1,69 @@
+{% extends "patients/index.html" %}
+{%load crispy_forms_tags%}
+{% block content %}
+<div class="ui divider"></div>
+<div class="ui segment" style="margin:0 10em; padding: 1.5em;">
+  <div class="ui segment" style="font-weight: 700; font-size: 1.2em; position: relative; padding: 0;">
+    <a href="{%url 'trans_19_home'%}">
+      <div class="ui button" style="position:absolute; left:0px; margin: 0.6em 0 0 0.7em">Back</div>
+    </a>
+    <div class="cent" style="margin: 0 auto; text-align: center; padding: 1em 0;">👇 CONNECTIONS 👇</div>
+  </div>
+  <div class="ui segment">
+    <form method="get" action="">
+      {{form|crispy}}
+      <div class="form-group col-md-6 mb-0">
+        {{ select_location|as_crispy_field }}
+      </div>
+      <input class="submit ui teal button" type="submit" style="width: 100%;" value="Search">
+    </form>
+  </div>
+  <div class="ui segment">
+    <div class="cent" style="margin: 0 auto; text-align: center; padding: 1em 0;">
+      <b>Details of the selected patient:</b><br>
+      Case Number: {{patient.caseNum}}<br>
+      Name: {{patient.name}}<br>
+      Date Case Confirmed: {{patient.dateConfi|date:"d-M-Y"}}
+    </div>
+  </div>
+  <table class="ui celled table" style="text-align: center;">
+    <thead>
+      <tr>
+        <th>Case Number</th>
+        <th>Name</th>
+        <th>Date Case Confirmed</th>
+        <th>Common Location Visited</th>
+        <th>Date Visited by this Patient</th>
+        <th>Detail</th>
+        <th>Date Visited by Selected Patient</th>
+        <th>Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for visit in visits %}
+        {% for connection in visit.connections %}
+        <tr class='patients' style="cursor:pointer;" onMouseOver="this.style.backgroundColor='rgb(240,240,240)'"
+        onMouseOut="this.style.backgroundColor='rgb(255,255,255)'" data-href="{%url 'trans_19_patient' connection.patient.id %}">
+          <td data-label="CaseNumber">{{connection.patient.caseNum}}</td>
+          <td data-label="PatientName">{{connection.patient.name}}</td>
+          <td data-label="DateConfitmation">{{connection.patient.dateConfi|date:"d-M-Y"}}</td>
+          <td data-label="CommonLocationVisited">{{connection.location.name}}</td>
+          <td data-label="DateVisitedByThisPatient">{{connection.date_From|date:"d-M-Y"}} - {{connection.date_To|date:"d-M-Y"}}</td>
+          <td data-label="Detail1">{{connection.details}}</td>
+          <td data-label="DateVisitedBySelectedPatient">{{visit.date_From|date:"d-M-Y"}} - {{visit.date_To|date:"d-M-Y"}}</td>
+          <td data-label="Detail2">{{visit.details}}</td>
+        </tr>
+        {% endfor %}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const rows = document.querySelectorAll('tr[data-href]');
+    rows.forEach(row => {
+      row.addEventListener('click', () => window.location.href = row.dataset.href)
+    });
+  });
+</script>
+{% endblock content %}
