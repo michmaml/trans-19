@@ -34,6 +34,7 @@ class PatientDetailView(LoginRequiredMixin, TemplateView):
         context['patient'] = Patient.objects.get(pk=patient)
         return context
 
+
 class AddPatientRecordView(LoginRequiredMixin, CreateView):
     model = Patient
     template_name = 'patients/patient_actions/add_patient_record.html'
@@ -47,6 +48,7 @@ class UpdatePatientRecordView(LoginRequiredMixin, UpdateView):
     model = Patient
     template_name = 'patients/patient_actions/update_patient_record.html'
     pk_url_kwarg = 'patient'
+    success_url = '/'
     fields = ['name', 'idNum', 'dateBirth', 'dateConfi', 'caseNum']
 
 
@@ -57,10 +59,11 @@ class DeletePatientRecordView(LoginRequiredMixin, DeleteView):
     success_url = '/'
     fields = ['name', 'idNum', 'dateBirth', 'dateConfi', 'caseNum']
 
+
 class AddPatientVisitView(LoginRequiredMixin, CreateView):
     model = Visit
     template_name = 'patients/patient_actions/add_patient_visit.html'
-    fields = ['location','date_From', 'date_To', 'details']
+    fields = ['location', 'date_From', 'date_To', 'details']
 
     def form_valid(self, form):
         patient = self.kwargs['patient']
@@ -73,11 +76,12 @@ class AddPatientVisitView(LoginRequiredMixin, CreateView):
         context['patientId'] = patient
         return context
 
+
 class UpdatePatientVisitView(LoginRequiredMixin, UpdateView):
     model = Visit
     template_name = 'patients/patient_actions/update_patient_visit.html'
     pk_url_kwarg = 'visit'
-    fields = ['location','date_From', 'date_To', 'details']
+    fields = ['location', 'date_From', 'date_To', 'details']
 
     def get_context_data(self, **kwargs):
         patient = self.kwargs['patient']
@@ -85,15 +89,15 @@ class UpdatePatientVisitView(LoginRequiredMixin, UpdateView):
         context['patientId'] = patient
         return context
 
+
 class DeletePatientVisitView(LoginRequiredMixin, DeleteView):
     model = Visit
     template_name = 'patients/patient_actions/delete_patient_visit.html'
     pk_url_kwarg = 'visit'
-    fields = ['location','date_From', 'date_To', 'details']
-
+    fields = ['location', 'date_From', 'date_To', 'details']
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('trans_19_patient', kwargs = {'patient': self.kwargs['patient']})
+        return reverse_lazy('trans_19_patient', kwargs={'patient': self.kwargs['patient']})
 
     def get_context_data(self, **kwargs):
         patient = self.kwargs['patient']
@@ -102,10 +106,11 @@ class DeletePatientVisitView(LoginRequiredMixin, DeleteView):
         success_url = 'patient/' + str(patient)
         return context
 
+
 class AddLocationRecordView(LoginRequiredMixin, CreateView):
     model = Location
     template_name = 'patients/location_actions/add_location_record.html'
-    fields = ['name', 'address', 'district', 'xCoord','yCoord', 'category']
+    fields = ['name', 'address', 'district', 'xCoord', 'yCoord', 'category']
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('trans_19_addLocationRecord')
@@ -114,6 +119,7 @@ class AddLocationRecordView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['locations'] = Location.objects.all()
         return context
+
 
 class ViewLocationRecordView(LoginRequiredMixin, TemplateView):
     model = Location
@@ -127,6 +133,7 @@ class ViewLocationRecordView(LoginRequiredMixin, TemplateView):
         context['locations'] = Location.objects.all()
         return context
 
+
 class DeleteLocationView(LoginRequiredMixin, DeleteView):
     model = Location
     pk_url_kwarg = 'location'
@@ -135,14 +142,16 @@ class DeleteLocationView(LoginRequiredMixin, DeleteView):
     def get_success_url(self, **kwargs):
         return reverse_lazy('trans_19_location')
 
+
 class UpdateLocationView(LoginRequiredMixin, UpdateView):
     model = Location
     template_name = 'patients/location_actions/update_location.html'
     pk_url_kwarg = 'location'
-    fields = ['name', 'address', 'district', 'xCoord','yCoord', 'category']
+    fields = ['name', 'address', 'district', 'xCoord', 'yCoord', 'category']
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('trans_19_location')
+
 
 class PatientConnectionsView(LoginRequiredMixin, TemplateView):
     template_name = 'patients/patient_connections.html'
@@ -152,8 +161,11 @@ class PatientConnectionsView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['patient'] = Patient.objects.get(pk=patient_id)
 
-        location_id = -1 if self.request.GET.get('location') == None else int(self.request.GET.get('location'))
-        time_range = 1 if self.request.GET.get('time_window') == None else int(self.request.GET.get('time_window'))
+        location_id = - \
+            1 if self.request.GET.get('location') == None else int(
+                self.request.GET.get('location'))
+        time_range = 1 if self.request.GET.get('time_window') == None else int(
+            self.request.GET.get('time_window'))
 
         try:
             case = Patient.objects.get(pk=patient_id)
@@ -163,7 +175,8 @@ class PatientConnectionsView(LoginRequiredMixin, TemplateView):
             for visit in visits:
                 date_lower_bound = visit.date_From - timedelta(days=time_range)
                 date_upper_bound = visit.date_To + timedelta(days=time_range)
-                visit.connections = Visit.objects.filter(location=visit.location).filter(date_To__gte=date_lower_bound).filter(date_From__lte=date_upper_bound).exclude(patient_id=patient_id)
+                visit.connections = Visit.objects.filter(location=visit.location).filter(
+                    date_To__gte=date_lower_bound).filter(date_From__lte=date_upper_bound).exclude(patient_id=patient_id)
         except Patient.DoesNotExist:
             case = None
             visits = None
@@ -182,11 +195,14 @@ class PatientConnectionsView(LoginRequiredMixin, TemplateView):
             location_choices[t.location.id] = t.location.name
 
         class SearchConnectionForm(forms.Form):
-            location = forms.ChoiceField(label='Location', choices=list(location_choices.items()), required=True, initial=location_id)
-            time_window = forms.IntegerField(label='Search window (in days)', required=True, initial=time_range)     
+            location = forms.ChoiceField(label='Location', choices=list(
+                location_choices.items()), required=True, initial=location_id)
+            time_window = forms.IntegerField(
+                label='Search window (in days)', required=True, initial=time_range)
 
         context['form'] = SearchConnectionForm()
         return context
+
 
 def account(request):
     return render(request, 'patients/account.html', {'title': 'Trans-19 Account'})
