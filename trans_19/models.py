@@ -4,24 +4,24 @@ from django.urls import reverse
 # Create your models here.
 
 DISTRICTS_CHOICES = (
-    ('centalwestern', 'Central & Western'),
-    ('eastern', 'Eastern'),
-    ('islands', 'Islands'),
-    ('kowlooncity', 'Kowloon City'),
-    ('kwaitsing', 'Kwai Tsing'),
-    ('kwuntong', 'Kwun Tong'),
-    ('north', 'North'),
-    ('saikung', 'Sai Kung'),
-    ('shatin', 'Sha Tin'),
-    ('shamshuipo', 'Sham Shui Po'),
-    ('southern', 'Southern'),
-    ('taipo', 'Tai Po'),
-    ('tsuenwan', 'Tsuen Wan'),
-    ('tuenmun', 'Tuen Mun'),
-    ('wanchai', 'Wan Chai'),
-    ('wongtaisin', 'Wong Tai Sin'),
-    ('yautsimmong', 'Yau Tsim Mong'),
-    ('yuenlong', 'Yuen Long')
+    ('Central & Western', 'Central & Western'),
+    ('Eastern', 'Eastern'),
+    ('Islands', 'Islands'),
+    ('Kowloon City', 'Kowloon City'),
+    ('Kwai Tsing', 'Kwai Tsing'),
+    ('Kwun Tong', 'Kwun Tong'),
+    ('North', 'North'),
+    ('Sai Kung', 'Sai Kung'),
+    ('Sha Tin', 'Sha Tin'),
+    ('Sham Shui Po', 'Sham Shui Po'),
+    ('Southern', 'Southern'),
+    ('Tai Po', 'Tai Po'),
+    ('Tsuen Wan', 'Tsuen Wan'),
+    ('Tuen Mun', 'Tuen Mun'),
+    ('Wan Chai', 'Wan Chai'),
+    ('Wong Tai Sin', 'Wong Tai Sin'),
+    ('Yau Tsim Mong', 'Yau Tsim Mong'),
+    ('Yuen Long', 'Yuen Long')
 )
 
 VISIT_CHOICES = (

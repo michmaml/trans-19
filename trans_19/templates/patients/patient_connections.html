@@ -9,24 +9,42 @@
     </a>
     <div class="cent" style="margin: 0 auto; text-align: center; padding: 1em 0;">👇 CONNECTIONS 👇</div>
   </div>
-  <div class="ui segment">
-    <form method="GET" class="ui equal width form">
-      <div class="field" style="border: none; padding: 0.5em;">
-        {{ form|crispy }}
-        <div style="text-align: center;">
-          <button class="ui button" style="position: relative; top: 50%;" type="submit">Search</button>
-        </div>
+  <div class="ui grid" style="margin-top: 1em;">
+    <div class="eight wide column">
+      <h3 class="ui header" style="text-align: center;">
+        <i class="user circle outline icon"></i>Patient's details:
+      </h3>
+      <table class="ui celled table" style="text-align: center;">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Case Number</th>
+            <th>Date of Confirmation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{patient.name}}</td>
+            <td>{{patient.caseNum}}</td>
+            <td>{{patient.dateConfi|date:"d-M-Y"}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="eight wide column">
+      <div class="ui segment">
+        <form method="GET" class="ui equal width form">
+          <div class="field" style="border: none;">
+            {{ form|crispy }}
+            <div style="text-align: center;">
+              <button class="ui button" style="position: relative; top: 50%;" type="submit">Search</button>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-  <div class="ui segment">
-    <div class="cent" style="margin: 0 auto; text-align: center; padding: 1em 0;">
-      <b>Details of the selected patient:</b><br>
-      Case Number: {{patient.caseNum}}<br>
-      Name: {{patient.name}}<br>
-      Date Case Confirmed: {{patient.dateConfi|date:"d-M-Y"}}
     </div>
   </div>
+  <div class="ui divider" style="margin: 1.5em 0;"></div>
   <table class="ui celled table" style="text-align: center;">
     <thead>
       <tr>
@@ -42,19 +60,22 @@
     </thead>
     <tbody>
       {% for visit in visits %}
-        {% for connection in visit.connections %}
-        <tr class='patients' style="cursor:pointer;" onMouseOver="this.style.backgroundColor='rgb(240,240,240)'"
-        onMouseOut="this.style.backgroundColor='rgb(255,255,255)'" data-href="{%url 'trans_19_patient' connection.patient.id %}">
-          <td data-label="CaseNumber">{{connection.patient.caseNum}}</td>
-          <td data-label="PatientName">{{connection.patient.name}}</td>
-          <td data-label="DateConfitmation">{{connection.patient.dateConfi|date:"d-M-Y"}}</td>
-          <td data-label="CommonLocationVisited">{{connection.location.name}}</td>
-          <td data-label="DateVisitedByThisPatient">{{connection.date_From|date:"d-M-Y"}} - {{connection.date_To|date:"d-M-Y"}}</td>
-          <td data-label="Detail1">{{connection.details}}</td>
-          <td data-label="DateVisitedBySelectedPatient">{{visit.date_From|date:"d-M-Y"}} - {{visit.date_To|date:"d-M-Y"}}</td>
-          <td data-label="Detail2">{{visit.details}}</td>
-        </tr>
-        {% endfor %}
+      {% for connection in visit.connections %}
+      <tr class='patients' style="cursor:pointer;" onMouseOver="this.style.backgroundColor='rgb(240,240,240)'"
+        onMouseOut="this.style.backgroundColor='rgb(255,255,255)'"
+        data-href="{%url 'trans_19_patient' connection.patient.id %}">
+        <td data-label="CaseNumber">{{connection.patient.caseNum}}</td>
+        <td data-label="PatientName">{{connection.patient.name}}</td>
+        <td data-label="DateConfitmation">{{connection.patient.dateConfi|date:"d-M-Y"}}</td>
+        <td data-label="CommonLocationVisited">{{connection.location.name}}</td>
+        <td data-label="DateVisitedByThisPatient">{{connection.date_From|date:"d-M-Y"}} -
+          {{connection.date_To|date:"d-M-Y"}}</td>
+        <td data-label="Detail1">{{connection.details}}</td>
+        <td data-label="DateVisitedBySelectedPatient">{{visit.date_From|date:"d-M-Y"}} - {{visit.date_To|date:"d-M-Y"}}
+        </td>
+        <td data-label="Detail2">{{visit.details}}</td>
+      </tr>
+      {% endfor %}
       {% endfor %}
     </tbody>
   </table>
