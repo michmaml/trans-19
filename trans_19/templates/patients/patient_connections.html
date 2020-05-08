@@ -61,9 +61,7 @@
     <tbody>
       {% for visit in visits %}
       {% for connection in visit.connections %}
-      <tr class='patients' style="cursor:pointer;" onMouseOver="this.style.backgroundColor='rgb(240,240,240)'"
-        onMouseOut="this.style.backgroundColor='rgb(255,255,255)'"
-        data-href="{%url 'trans_19_patient' connection.patient.id %}">
+      <tr class='patients' data-href="{%url 'trans_19_patient' connection.patient.id %}">
         <td data-label="CaseNumber">{{connection.patient.caseNum}}</td>
         <td data-label="PatientName">{{connection.patient.name}}</td>
         <td data-label="DateConfitmation">{{connection.patient.dateConfi|date:"d-M-Y"}}</td>
