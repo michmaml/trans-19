@@ -26,7 +26,7 @@ def account(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('/signup')
+            return redirect('/')
     else:
         form = UserUpdateAccount(instance=request.user)
     context = {
