@@ -6,3 +6,4 @@ I have managed to fully cover the Product Backlog for this iteration. Using the 
 
 Our team is doing amazing, every aspect of Scrum methology is fulfiled to every possible extent and the UI was created with a very good attention to detail - we made sure the website is accessible by choosing good contrasting colours or clear fonts(and their sizes). Now, CHP Staff can maintain* patients, their trips to various locations within HK and search for possible connections between within given date ranges.
 Huge thanks to all of my teammates for our incredible dedication and everyone's contribution!
+Video after the second sprint: https://youtu.be/o2p6b0Zd7mE
