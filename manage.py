@@ -1,8 +1,15 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+
+'''
+Group F, 2020, COMP3297
+'''
+
+
+
+
 import os
 import sys
-
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_project.settings')
