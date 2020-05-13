@@ -31,6 +31,10 @@ VISIT_CHOICES = (
     ('other', 'OTHER')
 )
 
+class chp_staff_data(models.Model):
+    username = models.CharField('User name', max_length=30)
+    chp_staff_number =  models.CharField('chp_staff_number', max_length=30)
+    epidemiologist_number =models.CharField('epidemiologist_number', max_length=30)
 
 class Patient(models.Model):
     name = models.CharField('Name', max_length=30)

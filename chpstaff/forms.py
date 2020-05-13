@@ -11,11 +11,12 @@ class UserSignInForm(UserCreationForm):
     first_name = forms.CharField()
     last_name = forms.CharField()
     email = forms.EmailField()
+    epidemiologist_number = forms.CharField(max_length=7, required=False, help_text="Leave it blank if you are not an epidemiologist")
     #epidemiologist = forms.BooleanField(initial=False)
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'chp_staff_number',
+        fields = ['first_name', 'last_name', 'epidemiologist_number','chp_staff_number',
                   'email', 'username', 'password1', 'password2']  # , 'epidemiologist'
 
 
