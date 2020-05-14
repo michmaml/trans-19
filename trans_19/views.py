@@ -182,7 +182,7 @@ class PatientConnectionsView(LoginRequiredMixin, TemplateView):
         location_id = - \
             1 if self.request.GET.get('location') == None else int(
                 self.request.GET.get('location'))
-        time_range = 1 if self.request.GET.get('time_window') == None else int(
+        time_range = 0 if self.request.GET.get('time_window') == None else int(
             self.request.GET.get('time_window'))
 
         try:
