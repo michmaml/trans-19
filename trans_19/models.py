@@ -31,10 +31,13 @@ VISIT_CHOICES = (
     ('other', 'OTHER')
 )
 
+
 class chp_staff_data(models.Model):
     username = models.CharField('User name', max_length=30)
-    chp_staff_number =  models.CharField('chp_staff_number', max_length=30)
-    epidemiologist_number =models.CharField('epidemiologist_number', max_length=30)
+    chp_staff_number = models.CharField('chp_staff_number', max_length=30)
+    epidemiologist_number = models.CharField(
+        'epidemiologist_number', max_length=30)
+
 
 class Patient(models.Model):
     name = models.CharField('Name', max_length=30)
@@ -49,6 +52,7 @@ class Patient(models.Model):
     def get_absolute_url(self):
         return reverse('trans_19_patient', kwargs={'patient': self.pk})
 
+
 class Location(models.Model):
     name = models.CharField('Location Visited', max_length=70)
     address = models.CharField(max_length=70)
@@ -60,9 +64,11 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
+
 class Visit(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True)
+    location = models.ForeignKey(
+        Location, on_delete=models.CASCADE, null=True, blank=True)
     date_From = models.DateField('Date From (YYYY-MM-DD)')
     date_To = models.DateField('Date To (YYYY-MM-DD)')
     details = models.CharField(max_length=70)
