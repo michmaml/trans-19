@@ -8,7 +8,13 @@
       <div class="ui button" style="position:absolute; left:0px; margin: 0.6em 0 0 0.7em">Back</div>
     </a>
     <div class="cent" style="margin: 0 auto; text-align: center; padding: 1em 0;">👇 CONNECTIONS 👇</div>
+
+
   </div>
+  
+  {% if epidemiologist_number != '0' and epidemiologist_number != "" and epidemiologist_number is not None %}
+  
+
   <div class="ui grid" style="margin-top: 1em;">
     <div class="eight wide column">
       <h3 class="ui header" style="text-align: center;">
@@ -77,6 +83,7 @@
       {% endfor %}
     </tbody>
   </table>
+  {% endif %}
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', () => {

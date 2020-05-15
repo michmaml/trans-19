@@ -5,7 +5,7 @@
   <form method="POST" class="ui equal width form">
     {% csrf_token %}
     <div class="field" style="border: none; padding: 0.5em;">
-      Already have an account?<span style="margin:0 0.3em;">➡️</span><a href="{%url 'chpstaff_login'%}">Login</a>
+      Already have an account?<span style="margin:0 0.3em;">➡️</span><a href="{%url 'chpstaff_login'%}">Log In</a>
       <div class="ui divider"></div>
       <h2 style="margin-top: 0.5em;">Create your account now and help fighing the virus 😷</h2>
       {{ form|crispy }}

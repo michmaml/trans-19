@@ -3,25 +3,40 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView, TemplateView, CreateView, UpdateView, DeleteView)
-from .models import Patient, Visit, Location
+from .models import Patient, Visit, Location, chp_staff_data
 from django import forms
 from datetime import datetime, timedelta
 
 # Create your views here.
+
+ 
+ 
+
 
 
 def home(request):
     context = {
         'patients': Patient.objects.all()
     }
+    
     return render(request, 'patients/home.html', context)
-
-
+ 
 class PatientsListView(LoginRequiredMixin, ListView):
     model = Patient
     template_name = 'patients/home.html'
     context_object_name = 'patients'
     ordering = ['-caseNum']
+    
+    def get_context_data(self, **kwargs):
+        
+        context = super().get_context_data(**kwargs)
+        name = self.request.user
+        chp_data_list = chp_staff_data.objects.filter(username=name)
+        for o in chp_data_list:
+            if o.username == name.username:
+              context['epidemiologist_number'] = o.epidemiologist_number
+              break
+        return context
 
 
 class PatientDetailView(LoginRequiredMixin, TemplateView):
@@ -32,6 +47,7 @@ class PatientDetailView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['visit_list'] = Visit.objects.filter(patient__pk=patient)
         context['patient'] = Patient.objects.get(pk=patient)
+
         return context
 
 
@@ -140,6 +156,7 @@ class DeleteLocationView(LoginRequiredMixin, DeleteView):
     template_name = 'patients/location_actions/delete_location.html'
 
     def get_success_url(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         return reverse_lazy('trans_19_location')
 
 
@@ -150,6 +167,7 @@ class UpdateLocationView(LoginRequiredMixin, UpdateView):
     fields = ['name', 'address', 'district', 'xCoord', 'yCoord', 'category']
 
     def get_success_url(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         return reverse_lazy('trans_19_location')
 
 
@@ -164,7 +182,7 @@ class PatientConnectionsView(LoginRequiredMixin, TemplateView):
         location_id = - \
             1 if self.request.GET.get('location') == None else int(
                 self.request.GET.get('location'))
-        time_range = 1 if self.request.GET.get('time_window') == None else int(
+        time_range = 0 if self.request.GET.get('time_window') == None else int(
             self.request.GET.get('time_window'))
 
         try:
@@ -201,6 +219,12 @@ class PatientConnectionsView(LoginRequiredMixin, TemplateView):
                 label='Search window (in days)', required=True, initial=time_range)
 
         context['form'] = SearchConnectionForm()
+        name = self.request.user
+        chp_data_list = chp_staff_data.objects.filter(username=name)
+        for o in chp_data_list:
+            if o.username == name.username:
+              context['epidemiologist_number'] = o.epidemiologist_number
+              break
         return context
 
 
