@@ -14,10 +14,10 @@
     </div>
     <thead>
       <tr>
-        <th>Name    
-         
+        <th>Name
 
-     </th>
+
+        </th>
         <th>ID Number</th>
         <th>Date of Birth</th>
         <th>Date of Confirmation</th>
@@ -41,14 +41,14 @@
         <td style="padding-left:0.05em; padding-right:0.05em;"><a class="ui grey button"
             href="{%url 'trans_19_deletePatientRecord' patient.id%}" style="margin:0">Delete</a>
         </td>
-     
-        {% if epidemiologist_number != '0' and epidemiologist_number != "" and epidemiologist_number is not None %}
+
+        {% if epidemiologist_number != "" and epidemiologist_number is not None %}
         <td style="padding-left:0.05em; padding-right:0.05em;"><a class="ui orange button"
-          href="{%url 'trans_19_patient_connections' patient.id%}" style="margin:0">Connections</a>
-      </td> 
-      {%endif%}
-        
-         
+            href="{%url 'trans_19_patient_connections' patient.id%}" style="margin:0">Connections</a>
+        </td>
+        {%endif%}
+
+
       </tr>
       {% endfor %}
     </tbody>
